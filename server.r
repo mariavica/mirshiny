@@ -5,6 +5,8 @@ shinyServer(function(input, output) {
    text1 <- eventReactive(input$goButton, {
       input$mirname
    })
+
+   mymirnas<-input$mirname	
    
    versions.mirnas<-versions.mirnas[,-1]
 
@@ -12,7 +14,7 @@ shinyServer(function(input, output) {
 		return(length(which((target %in% x) == TRUE)) / length(target) *100)
 	}
 
-	a<-apply(versions.mirnas,2,perc,v.miRNAs)
+	a<-apply(versions.mirnas,2,perc,mymirnas)
 
 	dat<-data.frame(x=names(a),y=a)
 
