@@ -7,7 +7,7 @@ shinyServer(function(input, output) {
    
    text1<-mirtable[1,1]
    output$text <- renderText({
-      text1()
+      text()
    })
   
 })
