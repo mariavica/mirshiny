@@ -11,13 +11,13 @@ shinyServer(function(input, output) {
       paste("Your miRNA is:",input$mirname,"\n")
    })      
    output$text2 <- renderText({
-      paste("The header of mirtable is:",mirtable[1,1])
+      paste("The header of mirtable is:",versions.mirnas[1,1])
    })
    
    
     output$percent <- renderPlot({
 	    
-	     versions.mirnas<-versions.mirnas[,-1]
+	versions.mirnas<-versions.mirnas[,-1]
 
 	perc <- function (x,target) {
 		return(length(which((target %in% x) == TRUE)) / length(target) *100)
