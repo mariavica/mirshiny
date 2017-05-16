@@ -1,5 +1,5 @@
 shinyServer(function(input, output) {
-   mirtable <- read.table("data/miRBase_conversion.csv",header=TRUE,sep="\t")
+   mirtable <- read.table("https://raw.githubusercontent.com/mariavica/mirshiny/patch-devel/data/miRBase_conversions.csv",header=TRUE,sep="\t")
    
    text1 <- eventReactive(input$goButton, {
       input$mirname
