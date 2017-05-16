@@ -1,5 +1,7 @@
 shinyServer(function(input, output) {
   
-  output$text <- input$mirname
+  output$text <- renderPlot( 
+    {input$mirname
+     })
   
 })
