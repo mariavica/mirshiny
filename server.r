@@ -5,9 +5,10 @@ shinyServer(function(input, output) {
       input$mirname
    })
    
-   text1<-mirtable[1,1]
-   output$text <- renderText({
-      paste("Your miRNA is:",text1),
+   output$text1 <- renderText({
+      paste("Your miRNA is:",text1)
+   })      
+   output$text2 <- renderText({
       paste("The header of mirtable is:",mirtable[1,1])
    })
   
