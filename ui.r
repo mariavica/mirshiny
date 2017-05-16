@@ -5,6 +5,9 @@ shinyUI(fluidPage(
     sidebarPanel(
       helpText("Write here your miRNA name"),
       textInput(inputId = "mirname", label=NULL),
+      helpText("or update your file"),
+      fileInput(inputId = "mirfile", label=NULL, multiple = FALSE, accept = NULL, width = NULL, 
+                buttonLabel = "Browse...", placeholder = "No file selected"),
       
       helpText("Your miRBase version"),
       
