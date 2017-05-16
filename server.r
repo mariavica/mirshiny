@@ -23,6 +23,8 @@ shinyServer(function(input, output) {
 		return(length(which((target %in% x) == TRUE)) / length(target) *100)
 	}
 
+	    mymirnas<-unlist(strsplit(mymirnas," "))
+	    
 	a<-apply(versions.mirnas,2,perc,mymirnas)
 
 	dat<-data.frame(x=names(a),y=a)
