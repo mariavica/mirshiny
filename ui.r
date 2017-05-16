@@ -4,9 +4,8 @@ shinyUI(fluidPage(
   sidebarLayout(
     sidebarPanel(
       helpText("Write here your miRNA name"),
-      
-    textInput(inputId = "mirname")
-        ) 
+      textInput(inputId = "mirname")
+    ),
     mainPanel(
       textOutput("text")
     )
