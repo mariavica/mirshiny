@@ -6,7 +6,18 @@ shinyServer(function(input, output) {
       input$mirname
    })
    
-   versions.mirnas<-versions.mirnas[,-1]
+  
+   output$text1 <- renderText({
+      paste("Your miRNA is:",input$mirname,"\n")
+   })      
+   output$text2 <- renderText({
+      paste("The header of mirtable is:",mirtable[1,1])
+   })
+   
+   
+    output$percent <- renderPlot({
+	    
+	     versions.mirnas<-versions.mirnas[,-1]
 
 	perc <- function (x,target) {
 		return(length(which((target %in% x) == TRUE)) / length(target) *100)
@@ -27,15 +38,7 @@ shinyServer(function(input, output) {
 	dat$x<-relevel(dat$x,"7.0")
 	dat$x<-relevel(dat$x,"6.0")
    
-   output$text1 <- renderText({
-      paste("Your miRNA is:",input$mirname,"\n")
-   })      
-   output$text2 <- renderText({
-      paste("The header of mirtable is:",mirtable[1,1])
-   })
-   
-   
-    output$percent <- renderPlot({
+	    
    		qplot(x=dat$x, y=dat$y, geom="bar", stat="identity", fill=dat$x) +
             guides(fill=FALSE) + xlab("miRBase version") + ylab("Coincidence (%)")
    })
