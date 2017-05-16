@@ -1,7 +1,7 @@
 shinyUI(bootstrapPage(
 
   selectInput(inputId = "n_breaks",
-              label = "Number of bins in histogram (approximate):",
+              label = "Number of bins in histogram (approximatedddddd):",
               choices = c(10, 20, 35, 50),
               selected = 20),
 
