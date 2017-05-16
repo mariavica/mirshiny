@@ -1,5 +1,5 @@
 shinyServer(function(input, output) {
-   libary(ggplot2)
+   library(ggplot2)
    versions.mirnas <- read.table("https://raw.githubusercontent.com/mariavica/mirshiny/master/data/miRBase_conversions.csv",header=TRUE,sep="\t")
    
    text1 <- eventReactive(input$goButton, {
