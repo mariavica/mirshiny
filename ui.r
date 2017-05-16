@@ -10,12 +10,12 @@ shinyUI(fluidPage(
                 buttonLabel = "Browse...", placeholder = "No file selected"),
       
       helpText("Your miRBase version"),
-      
-      selectInput(inputId = "mirfrom", label=NULL, choices=c("6","7","21","I dont't know"),
+            
+      selectInput(inputId = "mirfrom", label=NULL, choices=c("I don't know", "6.0", "7.0", "7.1", "8.0", "8.1", "8.2", "9.0", "9.1", "9.2", "10.0", "10.1", "11.0", "12.0", "13.0", "14", "15", "16", "17", "18", "19", "20", "21" ),
                   selected = "I don't know", multiple = FALSE, selectize = TRUE, width = NULL, size = NULL),
       
       helpText("Your desired miRBase version"),
-      selectInput(inputId = "mirto", label=NULL, choices=c("6","7","21"),
+      selectInput(inputId = "mirto", label=NULL, choices=c("6.0", "7.0", "7.1", "8.0", "8.1", "8.2", "9.0", "9.1", "9.2", "10.0", "10.1", "11.0", "12.0", "13.0", "14", "15", "16", "17", "18", "19", "20", "21" ),
                   selected = "I don't know", multiple = FALSE, selectize = TRUE, width = NULL, size = NULL),
       
       actionButton("goButton", "Go")
