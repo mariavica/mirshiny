@@ -22,7 +22,9 @@ shinyUI(fluidPage(
     ),    
     
     mainPanel(
-      textOutput("text", container=span)
+      textOutput("text1", container=span),
+      textOutput("text2", container=span)
+
     )
   )  
 ))
