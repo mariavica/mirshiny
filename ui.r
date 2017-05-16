@@ -8,6 +8,6 @@ shinyUI(fluidPage(
     ),
     mainPanel(
       textOutput("text")
-    ),
-
+    )
+  )  
 ))
