@@ -5,6 +5,16 @@ shinyUI(fluidPage(
     sidebarPanel(
       helpText("Write here your miRNA name"),
       textInput(inputId = "mirname", label=NULL),
+      
+      helpText("Your miRBase version"),
+      
+      selectInput(inputId = "mirfrom", label=NULL, choices=c("6","7","21","I dont't know"),
+                  selected = "I don't know", multiple = FALSE, selectize = TRUE, width = NULL, size = NULL),
+      
+      helpText("Your desired miRBase version"),
+      selectInput(inputId = "mirto", label=NULL, choices=c("6","7","21"),
+                  selected = "I don't know", multiple = FALSE, selectize = TRUE, width = NULL, size = NULL),
+      
       actionButton("goButton", "Go")
     ),    
     
