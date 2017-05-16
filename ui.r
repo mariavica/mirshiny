@@ -23,7 +23,8 @@ shinyUI(fluidPage(
     
     mainPanel(
       textOutput("text1", container=span),
-      textOutput("text2", container=span)
+      textOutput("text2", container=span),
+      plotOutput("percent", container=span)
 
     )
   )  
