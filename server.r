@@ -6,7 +6,7 @@ shinyServer(function(input, output) {
    })
    
    output$text1 <- renderText({
-      paste("Your miRNA is:",as.character(text1))
+      paste("Your miRNA is:",input$mirname)
    })      
    output$text2 <- renderText({
       paste("The header of mirtable is:",mirtable[1,1])
