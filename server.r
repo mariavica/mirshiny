@@ -12,74 +12,8 @@ shinyServer(function(input, output) {
      input$mirto
       })
    
-    output$percent <- renderPlot({
-      perc <- function (x,target) {
-        return(length(which((target %in% x) == TRUE)) / length(target) *100)
-      }
-      
-      versions.mirnas<-versions.mirnas[,-1]
-      
-      mymirnas<-unlist(strsplit(as.character(input$mirname),c("\\,|\\ |\\\n")))
-      print(mymirnas)
-      
-      a<-apply(versions.mirnas,2,perc,mymirnas)
-      
-      dat<-data.frame(x=names(a),y=a)
-      
-      dat$x<-factor(gsub("miRBase_","",dat$x))
-      dat$x<-relevel(dat$x,"9.2")
-      dat$x<-relevel(dat$x,"9.1")
-      dat$x<-relevel(dat$x,"9.0")
-      dat$x<-relevel(dat$x,"8.2")
-      dat$x<-relevel(dat$x,"8.1")
-      dat$x<-relevel(dat$x,"8.0")
-      dat$x<-relevel(dat$x,"7.1")
-      dat$x<-relevel(dat$x,"7.0")
-      dat$x<-relevel(dat$x,"6.0")
-      print(dat)
-      
-      maxs<-which(dat$y==max(dat$y))
-      selectedversion<-dat[maxs[length(maxs)] ,"x"]	
-      
-   		qplot(x=dat$x, y=dat$y, fill=dat$x) + geom_bar(stat="identity") +
-   		  guides(fill=FALSE) + xlab("miRBase version") + ylab("Coincidence (%)")
 
-   })
-   
-    output$text1 <- renderText({
-      
-      perc <- function (x,target) {
-        return(length(which((target %in% x) == TRUE)) / length(target) *100)
-      }
-      
-      versions.mirnas<-versions.mirnas[,-1]
-      
-      mymirnas<-unlist(strsplit(as.character(input$mirname),c("\\,|\\ |\\\n")))
-      print(mymirnas)
-      
-      a<-apply(versions.mirnas,2,perc,mymirnas)
-      
-      dat<-data.frame(x=names(a),y=a)
-      
-      dat$x<-factor(gsub("miRBase_","",dat$x))
-      dat$x<-relevel(dat$x,"9.2")
-      dat$x<-relevel(dat$x,"9.1")
-      dat$x<-relevel(dat$x,"9.0")
-      dat$x<-relevel(dat$x,"8.2")
-      dat$x<-relevel(dat$x,"8.1")
-      dat$x<-relevel(dat$x,"8.0")
-      dat$x<-relevel(dat$x,"7.1")
-      dat$x<-relevel(dat$x,"7.0")
-      dat$x<-relevel(dat$x,"6.0")
-      #print(dat)
-      
-      maxs<-which(dat$y==max(dat$y))
-      selectedversion<-dat[maxs[length(maxs)] ,"x"]	
-      
-      
-      paste("Your miRNAs are more likely to be from version:",selectedversion,"\n")
-    })  
-    
+
     
     mirfrom <- eventReactive(input$goButton, {
       input$mirfrom
@@ -114,11 +48,14 @@ shinyServer(function(input, output) {
       print(dat)
       
       maxs<-which(dat$y==max(dat$y))
-      selectedversion<-dat[maxs[length(maxs)] ,"x"]	
+      proposedversion<-dat[maxs[length(maxs)] ,"x"]	
+      
       
       if (input$mirfrom != "I don't know") {
         print("entering")
         selectedversion<-input$mirfrom
+      } else {
+        selectedversion<-proposedversion
       }
       
       print(paste("miRBase_",selectedversion,sep=""))
@@ -141,12 +78,25 @@ shinyServer(function(input, output) {
       colnames(mytrans)<-c((paste("miRBase_",as.character(selectedversion),sep="")),c(paste("miRBase_",as.character(input$mirto),sep="")))
       
       
-      return(mytrans)
+      return(list(mytrans,proposedversion,dat))
     })
     
-    output$translated<-renderTable(maketable())
+    output$text1 <- renderText({
+      paste("Your miRNAs are more likely to be from version:",maketable()[[2]],"\n")
+    })  
     
-    output$downloadTranslated <- downloadHandler( filename="translated.csv", content=function (file){ write.csv(maketable(), file) })
+    
+    output$percent <- renderPlot({
+      datp<-maketable()[[3]]
+      qplot(x=datp$x, y=datp$y, fill=datp$x) + geom_bar(stat="identity") +
+        guides(fill=FALSE) + xlab("miRBase version") + ylab("Coincidence (%)")
+      
+    })
+    
+
+    output$translated<-renderTable(maketable()[[1]])
+    
+    output$downloadTranslated <- downloadHandler( filename="translated.csv", content=function (file){ write.csv(maketable()[[1]], file, row.names=FALSE, sep="\t", quote=FALSE) })
     
 
     
