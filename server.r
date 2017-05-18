@@ -120,10 +120,8 @@ shinyServer(function(input, output) {
       
       maxs<-which(dat$y==max(dat$y))
       selectedversion<-dat[maxs[length(maxs)] ,"x"]	
-      } else {
-        selectedversion<-as.character(input$mirfrom)
-      }
-      
+
+        
       print(paste("miRBase_",selectedversion,sep=""))
       
         
@@ -144,8 +142,25 @@ shinyServer(function(input, output) {
         
       colnames(mytrans)<-c("Original_names",c(paste("miRBase_",as.character(input$mirto),sep="")))
       
-  
-  
+      } else {
+        selectedversion<-input$mirfrom
+        mymirnas<-as.character(mymirnas)
+        
+        mytrans<-data.frame(mymirnas)
+        
+        for (i in 1:nrow(mytrans)) {
+          if (mymirnas[i] %in% versions.mirnas[,paste("miRBase_",selectedversion,sep="")] ) {
+            mytrans[i,2]<-as.character(versions.mirnas[ which(  (versions.mirnas[,paste("miRBase_",selectedversion,sep="")] %in%  mymirnas[i])  ), c(paste("miRBase_",as.character(input$mirto),sep="")) ])
+            
+          } else {
+            
+            mytrans[i,2]<-"Not in input"
+            
+          }
+      }
+        
+        
+        }
       
       
       print(mytrans)
