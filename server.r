@@ -2,23 +2,6 @@ shinyServer(function(input, output) {
    library(ggplot2)
    versions.mirnas <- read.table("https://raw.githubusercontent.com/mariavica/mirtools/master/data/miRBase_conversions.csv",header=TRUE,sep="\t")
    
-   mymirnas <- eventReactive(input$goButton, {
-      input$mirname
-     
-   })
-   
-   
-   mirto <- eventReactive(input$goButton, {
-     input$mirto
-      })
-   
-
-
-    
-    mirfrom <- eventReactive(input$goButton, {
-      input$mirfrom
-    })
-
     maketable <- reactive({
       
       perc <- function (x,target) {
