@@ -89,7 +89,7 @@ shinyServer(function(input, output) {
     })
     
     output$text1 <- renderText({
-      paste("Your miRNAs are more likely to be from version:",maketable()[[2]],"\n")
+      paste("Most of your miRNAs are from version:",maketable()[[2]],"\n")
     })  
     
     

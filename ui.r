@@ -17,7 +17,7 @@ shinyUI(fluidPage(
       helpText("Your desired miRBase version"),
       selectInput(inputId = "mirto", label=NULL, choices=c("6.0", "7.0", "7.1", "8.0", "8.1", "8.2", "9.0", "9.1", "9.2", "10.0", "10.1", "11.0", "12.0", "13.0", "14", "15", "16", "17", "18", "19", "20", "21" ),
                   selected = "21", multiple = FALSE, selectize = TRUE, width = NULL, size = NULL),
-      checkboxInput(inputId="forceTranslation",label="Force translation", value=FALSE)
+      checkboxInput(inputId="forceTranslation",label="Force translation (miRNAs from other versions will be automatically translated to final version)", value=FALSE)
   
   
   
