@@ -1,8 +1,9 @@
 shinyServer(function(input, output) {
    library(ggplot2)
    versions.mirnas <- read.table("https://raw.githubusercontent.com/mariavica/mirtools/master/data/miRBase_conversions.csv",header=TRUE,sep="\t")
+   tot<-nrow(versions.mirnas)
    
-    maketable <- reactive({
+    maketable <- reactive( if (input$mirname!="")  {
       
       perc <- function (x,target) {
         return(length(which((target %in% x) == TRUE)) / length(target) *100)
@@ -53,7 +54,15 @@ shinyServer(function(input, output) {
           
         } else {
           
-          mytrans[i,2]<-paste("Not in miRBase_",selectedversion,sep="")
+          if (mymirnas[i] %in% as.vector(as.matrix(versions.mirnas))) {
+            
+            coincidences <- which(versions.mirnas==mymirnas[i])
+            version <- colnames(versions.mirnas)[ceiling(coincidences[length(coincidences)]/tot)]
+            
+             mytrans[i,2]<-as.character(paste("Not found in miRBase_",selectedversion," (found in ", version,")", sep=""))
+          } else {
+            mytrans[i,2]<-paste("Unknown miRNA")
+          }
           
         }
       }
