@@ -1,12 +1,11 @@
 shinyServer(function(input, output) {
    library(ggplot2)
-   versions.mirnas <- read.table("https://raw.githubusercontent.com/mariavica/mirshiny/master/data/miRBase_conversions.csv",header=TRUE,sep="\t")
+   versions.mirnas <- read.table("https://raw.githubusercontent.com/mariavica/mirtools/master/data/miRBase_conversions.csv",header=TRUE,sep="\t")
    
    mymirnas <- eventReactive(input$goButton, {
       input$mirname
    })
    
-  
    output$text1 <- renderText({
       paste("Your miRNA is:",input$mirname,"\n")
    })      
@@ -23,7 +22,8 @@ shinyServer(function(input, output) {
 		return(length(which((target %in% x) == TRUE)) / length(target) *100)
 	}
 
-	    mymirnas<-as.character(unlist(strsplit(mymirnas," ")))
+	    mymirnas<-unlist(strsplit(as.character(input$mirname)," "))
+	    print(mymirnas)
 	    
 	a<-apply(versions.mirnas,2,perc,mymirnas)
 
@@ -39,10 +39,18 @@ shinyServer(function(input, output) {
 	dat$x<-relevel(dat$x,"7.1")
 	dat$x<-relevel(dat$x,"7.0")
 	dat$x<-relevel(dat$x,"6.0")
-   
+   print(dat)
 	    
-   		qplot(x=dat$x, y=dat$y, geom="bar", stat="identity", fill=dat$x) +
-            guides(fill=FALSE) + xlab("miRBase version") + ylab("Coincidence (%)")
+   #		qplot(x=dat$x, y=dat$y, geom="bar", stat="identity", fill=dat$x) +
+  #          guides(fill=FALSE) + xlab("miRBase version") + ylab("Coincidence (%)")
+   		
+   		
+   		qplot(x=dat$x, y=dat$y, fill=dat$x) + geom_bar(stat="identity") +
+   		  guides(fill=FALSE) + xlab("miRBase version") + ylab("Coincidence (%)")
+   		
+   		
+   		
+   		
    })
    
    
