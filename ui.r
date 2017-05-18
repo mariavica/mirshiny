@@ -30,6 +30,8 @@ shinyUI(fluidPage(
       
       helpText("Your translated miRNAs are:"),
       
+      downloadButton("downloadTranslated",label="Download table"),
+      
       
       tableOutput("translated")
       
