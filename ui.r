@@ -3,7 +3,7 @@ shinyUI(fluidPage(
   
   sidebarLayout(
     sidebarPanel(
-      helpText("Paste here your miRNAs"),
+      helpText("Paste here your miRNAs to start:"),
       textAreaInput(inputId = "mirname", label=NULL,cols=20,rows=5),
   #    helpText("or update your file"),
   #    fileInput(inputId = "mirfile", label=NULL, multiple = FALSE, accept = NULL, width = NULL, 
