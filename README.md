@@ -4,7 +4,19 @@ This is an example application for Shiny.
 The main purpose of this example is to illustrate how to run Shiny apps from a remote source.
 There are many ways to download and run it:
 
+First check the dependencies (you only need to do this once):
+
 ```R
+if(!require(ggplot2)) install.packages("ggplot2")
+if(!require(shiny)) install.packages("shiny")
+```
+
+Then load the shiny app:
+
+```R
+if(!require(ggplot2)) install.packages("ggplot2")
+if(!require(shiny)) install.packages("shiny")
+
 library(shiny)
 
 # Easiest way is to use runGitHub
