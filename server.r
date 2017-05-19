@@ -4,6 +4,10 @@ shinyServer(function(input, output) {
    totrow<-nrow(versions.mirnas)
    totcol<-ncol(versions.mirnas)
    
+   species_name<-c("Homo sapiens","Mus musculus")
+   prefix<-c("hsa-","mmu-")
+   
+   
     maketable <- reactive( if (input$mirname!="")  {
       
       perc <- function (x,target) {
@@ -13,6 +17,13 @@ shinyServer(function(input, output) {
       versions.mirnas<-versions.mirnas[,-1]
       
       mymirnas<-unlist(strsplit(as.character(input$mirname),c("\\,|\\ |\\\n")))
+      
+      if (input$species!="select") {
+        specie<-which(species_name %in% input$species)
+        mymirnas<-paste(prefix[specie],mymirnas,sep="")
+        mymirnas<-gsub(paste(prefix[specie],prefix[specie],sep=""),prefix[specie],mymirnas)
+      } 
+      
       mymirnas<-mymirnas[which(mymirnas!="")]
       print(mymirnas)
       
