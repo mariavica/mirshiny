@@ -8,11 +8,11 @@ There are many ways to download and run it:
 library(shiny)
 
 # Easiest way is to use runGitHub
-runGitHub("mirshiny", "mariavica")
+runGitHub("mirtools", "mariavica")
 
 # Run a tar or zip file directly
-runUrl("https://github.com/mariavica/mirshiny/archive/master.tar.gz")
-runUrl("https://github.com/marivica/mirshiny/archive/master.zip")
+runUrl("https://github.com/mariavica/mirtools/archive/master.tar.gz")
+runUrl("https://github.com/marivica/mirtools/archive/master.zip")
 ```
 
 Or you can clone the git repository, then use `runApp()`:
@@ -28,7 +28,7 @@ runApp()
 To run a Shiny app from a subdirectory in the repo or zip file, you can use the `subdir` argument. This repository happens to contain another copy of the app in `additional/mysubdir1`.
 
 ```R
-runGitHub("mirshiny", "mariavica", subdir = "additional/mysubdir1")
+runGitHub("mirtools", "mariavica", subdir = "additional/mysubdir1")
 
-runUrl("https://github.com/mariavica/mirshiny/archive/master.tar.gz",
+runUrl("https://github.com/mariavica/mirtools/archive/master.tar.gz",
   subdir = "additional/mysubdir1")
