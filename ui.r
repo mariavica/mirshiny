@@ -1,10 +1,10 @@
 shinyUI(fluidPage(
-  titlePanel("MiRTranslator"),
+  titlePanel("MiRNA version identifier and translator"),
   
   sidebarLayout(
     sidebarPanel(
       helpText("Paste here your miRNAs to start:"),
-      textAreaInput(inputId = "mirname", label=NULL,cols=20,rows=5),
+      textAreaInput(inputId = "mirname", label=NULL,cols=20,rows=17),
   #    helpText("or update your file"),
   #    fileInput(inputId = "mirfile", label=NULL, multiple = FALSE, accept = NULL, width = NULL, 
   #              buttonLabel = "Browse...", placeholder = "No file selected"),
