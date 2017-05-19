@@ -14,25 +14,22 @@ if(!require(shiny)) install.packages("shiny")
 Then load the shiny app:
 
 ```R
-if(!require(ggplot2)) install.packages("ggplot2")
-if(!require(shiny)) install.packages("shiny")
-
 library(shiny)
 
 # Easiest way is to use runGitHub
 runGitHub("mirtools", "mariavica")
+```
 
+Other ways to load the app:
+
+```R
 # Run a tar or zip file directly
 runUrl("https://github.com/mariavica/mirtools/archive/master.tar.gz")
 runUrl("https://github.com/marivica/mirtools/archive/master.zip")
-```
 
-Or you can clone the git repository, then use `runApp()`:
-
-```R
-# First clone the repository with git. If you have cloned it into
+# Using runApp(),  first clone the repository with git. If you have cloned it into
 # ~/shiny_example, first go to that directory, then use runApp().
-setwd("~/mirshiny")
+setwd("~/mirtools")
 runApp()
 ```
 
