@@ -18,9 +18,13 @@ shinyUI(fluidPage(
       selectInput(inputId = "mirto", label=NULL, choices=c("6.0", "7.0", "7.1", "8.0", "8.1", "8.2", "9.0", "9.1", "9.2", "10.0", "10.1", "11.0", "12.0", "13.0", "14", "15", "16", "17", "18", "19", "20", "21" ),
                   selected = "21", multiple = FALSE, selectize = TRUE, width = NULL, size = NULL),
 
+   helpText(strong("Proofreading:")),
+  
+  
+  
         checkboxInput(inputId="forceTranslation",label="Force translation (miRNAs from other versions will be automatically translated to final version)", value=FALSE),
 
-  checkboxInput(inputId="capitalise",label="Capitalise mir names", value=FALSE),
+  checkboxInput(inputId="capitalise",label="Capitalise (convert \"mir\" to \"miR\")", value=FALSE),
   
     
   helpText("MiRNA species"),

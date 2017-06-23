@@ -1,4 +1,4 @@
--5pshinyServer(function(input, output) {
+shinyServer(function(input, output) {
    library(ggplot2)
    versions.mirnas <- read.table("https://raw.githubusercontent.com/mariavica/mirtools/master/data/miRBase_conversions.csv",header=TRUE,sep="\t")
    totrow<-nrow(versions.mirnas)
@@ -23,6 +23,10 @@
         mymirnas<-paste(prefix[specie],mymirnas,sep="")
         mymirnas<-gsub(paste(prefix[specie],prefix[specie],sep=""),prefix[specie],mymirnas)
       } 
+      
+      if (input$capitalise) {
+        mymirnas<-gsub("mir","miR",mymirnas)
+      }
       
       mymirnas<-mymirnas[which(mymirnas!="")]
       print(mymirnas)
