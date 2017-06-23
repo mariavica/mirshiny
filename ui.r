@@ -19,7 +19,10 @@ shinyUI(fluidPage(
                   selected = "21", multiple = FALSE, selectize = TRUE, width = NULL, size = NULL),
 
         checkboxInput(inputId="forceTranslation",label="Force translation (miRNAs from other versions will be automatically translated to final version)", value=FALSE),
+
+  checkboxInput(inputId="capitalise",label="Capitalise mir names", value=FALSE),
   
+    
   helpText("MiRNA species"),
   
   selectInput(inputId = "species", label=NULL, choices=c("select","Homo sapiens","Mus musculus"),

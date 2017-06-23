@@ -1,4 +1,4 @@
-shinyServer(function(input, output) {
+-5pshinyServer(function(input, output) {
    library(ggplot2)
    versions.mirnas <- read.table("https://raw.githubusercontent.com/mariavica/mirtools/master/data/miRBase_conversions.csv",header=TRUE,sep="\t")
    totrow<-nrow(versions.mirnas)
