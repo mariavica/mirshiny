@@ -25,7 +25,18 @@ shinyServer(function(input, output) {
       } 
       
       if (input$capitalise) {
-        mymirnas<-gsub("mir","miR",mymirnas)
+        mymirnas<-gsub("[mM][iI][rR]","miR",mymirnas)
+        mymirnas<-gsub("[Ll][Ee][Tt]","let",mymirnas)
+        mymirnas<-gsub("A","a",mymirnas)
+        mymirnas<-gsub("B","b",mymirnas)
+        mymirnas<-gsub("C","c",mymirnas)
+        mymirnas<-gsub("D","d",mymirnas)
+        mymirnas<-gsub("E","e",mymirnas)
+        mymirnas<-gsub("F","f",mymirnas)
+        mymirnas<-gsub("G","g",mymirnas)
+        mymirnas<-gsub("H","h",mymirnas)
+        mymirnas<-gsub("I","i",mymirnas)
+        mymirnas<-gsub("J","j",mymirnas)
       }
       
       mymirnas<-mymirnas[which(mymirnas!="")]
