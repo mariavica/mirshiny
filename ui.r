@@ -9,9 +9,9 @@ shinyUI(fluidPage(
   #    fileInput(inputId = "mirfile", label=NULL, multiple = FALSE, accept = NULL, width = NULL, 
   #              buttonLabel = "Browse...", placeholder = "No file selected"),
       
-       helpText("Or upload file"),
+      helpText("Or upload file"),
    
-       fileInput(inputId= "csvfile", label=NULL , multiple = FALSE, accept = NULL, width = NULL,
+      fileInput(inputId= "csvfile", label=NULL , multiple = FALSE, accept = NULL, width = NULL,
             buttonLabel = "Browse...", placeholder = "No file selected"),
   
       helpText("Your miRBase version"),
