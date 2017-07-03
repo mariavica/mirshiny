@@ -1,4 +1,4 @@
--5pshinyServer(function(input, output) {
+shinyServer(function(input, output) {
    library(ggplot2)
    versions.mirnas <- read.table("https://raw.githubusercontent.com/mariavica/mirtools/master/data/miRBase_conversions.csv",header=TRUE,sep="\t")
    totrow<-nrow(versions.mirnas)
@@ -8,7 +8,7 @@
    prefix<-c("hsa-","mmu-")
    
    
-    maketable <- reactive( if (input$mirname!="")  {
+    maketable <- reactive( if (input$mirname!=""  | !is.null(input$csvfile) )  {
       
       perc <- function (x,target) {
         return(length(which((target %in% x) == TRUE)) / length(target) *100)
@@ -16,13 +16,42 @@
       
       versions.mirnas<-versions.mirnas[,-1]
       
-      mymirnas<-unlist(strsplit(as.character(input$mirname),c("\\,|\\ |\\\n")))
+      if (!is.null(input$csvfile)) {
+        
+        inFile<-input$csvfile
+        
+        uploadedm<-read.csv(inFile$datapath)
+        
+        
+        mymirnas<-unlist(strsplit(as.character(uploadedm[,1]),c("\\,|\\ |\\\n")))
+      }
       
-      if (input$species!="select") {
+
+      if (input$mirname!="") {
+        mymirnas<-unlist(strsplit(as.character(input$mirname),c("\\,|\\ |\\\n")))
+      }
+      
+      
+            if (input$species!="select") {
         specie<-which(species_name %in% input$species)
         mymirnas<-paste(prefix[specie],mymirnas,sep="")
         mymirnas<-gsub(paste(prefix[specie],prefix[specie],sep=""),prefix[specie],mymirnas)
       } 
+      
+      if (input$capitalise) {
+        mymirnas<-gsub("[mM][iI][rR]","miR",mymirnas)
+        mymirnas<-gsub("[Ll][Ee][Tt]","let",mymirnas)
+        mymirnas<-gsub("A","a",mymirnas)
+        mymirnas<-gsub("B","b",mymirnas)
+        mymirnas<-gsub("C","c",mymirnas)
+        mymirnas<-gsub("D","d",mymirnas)
+        mymirnas<-gsub("E","e",mymirnas)
+        mymirnas<-gsub("F","f",mymirnas)
+        mymirnas<-gsub("G","g",mymirnas)
+        mymirnas<-gsub("H","h",mymirnas)
+        mymirnas<-gsub("I","i",mymirnas)
+        mymirnas<-gsub("J","j",mymirnas)
+      }
       
       mymirnas<-mymirnas[which(mymirnas!="")]
       print(mymirnas)
