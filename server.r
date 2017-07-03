@@ -1,12 +1,12 @@
 shinyServer(function(input, output) {
    library(ggplot2)
-   versions.mirnas <- read.table("https://raw.githubusercontent.com/mariavica/mirtools/master/data/miRBase_conversions.csv",header=TRUE,sep="\t")
-   totrow<-nrow(versions.mirnas)
-   totcol<-ncol(versions.mirnas)
+   #versions.mirnas <- read.table("https://raw.githubusercontent.com/mariavica/mirtools/master/data/miRBase_conversions.csv",header=TRUE,sep="\t")
+   #totrow<-nrow(versions.mirnas)
+   #totcol<-ncol(versions.mirnas)
+   load("mirbase_conversions.RData")
    
    species_name<-c("Homo sapiens","Mus musculus")
    prefix<-c("hsa-","mmu-")
-   
    
     maketable <- reactive( if (input$mirname!=""  | !is.null(input$csvfile) )  {
       
