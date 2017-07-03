@@ -11,7 +11,8 @@ shinyUI(fluidPage(
       
       helpText("Or upload file"),
    
-      fileInput(inputId= "csvfile", label=NULL , multiple = FALSE, accept = NULL, width = NULL,
+      fileInput(inputId="csvfile", label=NULL , multiple = FALSE, accept = c(
+        "text/csv", "text/comma-separated-values,text/plain",".csv",".txt"), width = NULL,
             buttonLabel = "Browse...", placeholder = "No file selected"),
   
       helpText("Your miRBase version"),

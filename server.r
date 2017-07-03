@@ -8,7 +8,7 @@ shinyServer(function(input, output) {
    prefix<-c("hsa-","mmu-")
    
    
-    maketable <- reactive( if (input$mirname!=""  | input$csvfile!="" )  {
+    maketable <- reactive( if (input$mirname!=""  | !is.null(input$csvfile) )  {
       
       perc <- function (x,target) {
         return(length(which((target %in% x) == TRUE)) / length(target) *100)
@@ -16,14 +16,23 @@ shinyServer(function(input, output) {
       
       versions.mirnas<-versions.mirnas[,-1]
       
+      if (!is.null(input$csvfile)) {
+        
+        inFile<-input$csvfile
+        
+        uploadedm<-read.csv(inFile$datapath)
+        
+        
+        mymirnas<-unlist(strsplit(as.character(uploadedm[,1]),c("\\,|\\ |\\\n")))
+      }
+      
+
       if (input$mirname!="") {
         mymirnas<-unlist(strsplit(as.character(input$mirname),c("\\,|\\ |\\\n")))
       }
-      if (input$csvfile!="") {
-        mymirnas<-unlist(strsplit(as.character(input$csvfile),c("\\,|\\ |\\\n")))
-      }
       
-      if (input$species!="select") {
+      
+            if (input$species!="select") {
         specie<-which(species_name %in% input$species)
         mymirnas<-paste(prefix[specie],mymirnas,sep="")
         mymirnas<-gsub(paste(prefix[specie],prefix[specie],sep=""),prefix[specie],mymirnas)
