@@ -143,7 +143,7 @@ shinyServer(function(input, output) {
 
     output$translated<-renderTable(maketable()[[1]])
     
-    output$downloadTranslated <- downloadHandler( filename="translated.csv", content=function (file){ write.csv(maketable()[[1]], file, row.names=FALSE, sep="\t", quote=FALSE) })
+    output$downloadTranslated <- downloadHandler( filename="translated.csv", content=function (file){ write.table(maketable()[[1]], file, row.names=FALSE, sep="\t", quote=FALSE) })
     
 
     
