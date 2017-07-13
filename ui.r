@@ -31,13 +31,21 @@ shinyUI(fluidPage(
   
         checkboxInput(inputId="forceTranslation",label="Force translation (miRNAs from other versions will be automatically translated to desired version)", value=FALSE),
 
-  checkboxInput(inputId="capitalise",label="Correct capital letters (valid only for \"miR\" and \"let\")", value=FALSE),
-  
-    
+
   helpText("MiRNA species"),
   
   selectInput(inputId = "species", label=NULL, choices=c("select","Homo sapiens","Mus musculus"),
-              selected = "Specified in name", multiple = FALSE, selectize = TRUE, width = NULL, size = NULL)
+              selected = "Specified in name", multiple = FALSE, selectize = TRUE, width = NULL, size = NULL),
+  
+
+  checkboxInput(inputId="capitalise",label="Correct capital letters (valid only for \"miR\" and \"let\")", value=FALSE),
+  
+  helpText("Substitute"),
+  
+  textInput("subst.orig",label=NULL,value=NULL),
+  
+  textInput("subst.fin",label=NULL,value="")
+  
   
     ),    
     

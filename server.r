@@ -53,6 +53,19 @@ shinyServer(function(input, output) {
         mymirnas<-gsub("J","j",mymirnas)
       }
       
+      
+      if (!is.null(input$subst.orig)) {
+        or<-unlist(strsplit(input$subst.orig,","))
+        fin<-unlist(strsplit(input$subst.fin,","))
+        
+        if (length(or)==length(fin)) {
+          for (i in 1:length(or)) {
+            mymirnas<-gsub(or[i],fin[i],mymirnas)
+          }
+        }
+        
+      }
+      
       mymirnas<-mymirnas[which(mymirnas!="")]
       print(mymirnas)
       
