@@ -57,7 +57,7 @@ shinyServer(function(input, output) {
       
 
       mymirnas<-mymirnas[which(mymirnas!="")]
-      print(mymirnas)
+      #print(mymirnas)
       
       a<-apply(versions.mirnas,2,perc,mymirnas)
       
@@ -73,23 +73,21 @@ shinyServer(function(input, output) {
       dat$x<-relevel(dat$x,"7.1")
       dat$x<-relevel(dat$x,"7.0")
       dat$x<-relevel(dat$x,"6.0")
-      print(dat)
+      #print(dat)
       
       maxs<-which(dat$y==max(dat$y))
       proposedversion<-dat[maxs[length(maxs)] ,"x"]	
       
       
       if (input$mirfrom != "I don't know") {
-        print("entering")
         selectedversion<-input$mirfrom
       } else {
         selectedversion<-proposedversion
       }
       
-      print(paste("miRBase_",selectedversion,sep=""))
+      #print(paste("miRBase_",selectedversion,sep=""))
       
       mymirnas<-as.character(mymirnas)
-      
       mytrans<-data.frame(mymirnas)
       
       for (i in 1:nrow(mytrans)) {
@@ -102,9 +100,9 @@ shinyServer(function(input, output) {
             
             if (input$forceTranslation) {
                   coincidences <- which(t(versions.mirnas)==mymirnas[i])
-                  print(coincidences)
+                  #print(coincidences)
                   rowmir <- ceiling(coincidences[length(coincidences)]/(totcol-1))
-                  print(rowmir)
+                  #print(rowmir)
                   
                   mytrans[i,2]<-as.character(versions.mirnas[rowmir, c(paste("miRBase_",as.character(input$mirto),sep="")) ])
             }
