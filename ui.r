@@ -5,7 +5,7 @@ shinyUI(fluidPage(
     sidebarPanel(
       
       helpText("Upload your file (\"*txt\" or \"*csv\" plain file):"),
-      
+    
       fileInput(inputId="csvfile", label=NULL , multiple = FALSE, accept = c(
         "text/csv", "text/comma-separated-values,text/plain",".csv",".txt"), width = NULL,
         buttonLabel = "Browse...", placeholder = "No file selected"),
@@ -26,36 +26,32 @@ shinyUI(fluidPage(
                   selected = "21", multiple = FALSE, selectize = TRUE, width = NULL, size = NULL),
 
    helpText(strong("Proofreading:")),
-  
-  
-  
-        checkboxInput(inputId="forceTranslation",label="Force translation (miRNAs from other versions will be automatically translated to desired version)", value=FALSE),
 
-  checkboxInput(inputId="capitalise",label="Correct capital letters (valid only for \"miR\" and \"let\")", value=FALSE),
-  
-    
+   checkboxInput(inputId="forceTranslation",label="Force translation (miRNAs from other versions will be automatically translated to desired version)", value=FALSE),
+
+
   helpText("MiRNA species"),
   
   selectInput(inputId = "species", label=NULL, choices=c("select","Homo sapiens","Mus musculus"),
-              selected = "Specified in name", multiple = FALSE, selectize = TRUE, width = NULL, size = NULL)
+              selected = "Specified in name", multiple = FALSE, selectize = TRUE, width = NULL, size = NULL),
   
+
+  checkboxInput(inputId="capitalise",label="Correct capital letters (valid only for \"miR\" and \"let\")", value=FALSE)#,
+  
+#  helpText("Substitute"),
+#  textInput("subst.orig",label=NULL,value=NULL),
+#  textInput("subst.fin",label=NULL,value="")
+
     ),    
     
     mainPanel(
       #textOutput("text2", container=span),
       helpText("Coincidences across miRNA versions"),
       plotOutput("percent"),
-
       textOutput("text1", container=span),
-      
       helpText("Your translated miRNAs are:"),
-      
       downloadButton("downloadTranslated",label="Download table"),
-      
       tableOutput("translated")
-      
-      
-      
     )
   )  
 ))
