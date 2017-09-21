@@ -22,7 +22,6 @@ shinyServer(function(input, output) {
         
         uploadedm<-read.csv(inFile$datapath)
         
-        
         mymirnas<-unlist(strsplit(as.character(uploadedm[,1]),c("\\,|\\ |\\\n")))
       }
       
@@ -31,12 +30,7 @@ shinyServer(function(input, output) {
         mymirnas<-unlist(strsplit(as.character(input$mirname),c("\\,|\\ |\\\n")))
       }
       
-      
-            if (input$species!="select") {
-        specie<-which(species_name %in% input$species)
-        mymirnas<-paste(prefix[specie],mymirnas,sep="")
-        mymirnas<-gsub(paste(prefix[specie],prefix[specie],sep=""),prefix[specie],mymirnas)
-      } 
+    
       
       if (input$capitalise) {
         mymirnas<-gsub("[mM][iI][rR]","miR",mymirnas)
@@ -54,18 +48,14 @@ shinyServer(function(input, output) {
       }
       
       
-      if (!is.null(input$subst.orig)) {
-        or<-unlist(strsplit(input$subst.orig,","))
-        fin<-unlist(strsplit(input$subst.fin,","))
-        
-        if (length(or)==length(fin)) {
-          for (i in 1:length(or)) {
-            mymirnas<-gsub(or[i],fin[i],mymirnas)
-          }
-        }
-        
-      }
+      if (input$species!="select") {
+        specie<-which(species_name %in% input$species)
+        sel<-c(grep("^miR",mymirnas),grep("^let",mymirnas))
+        mymirnas[sel]<-paste(prefix[specie],mymirnas[sel],sep="")
+        mymirnas[sel]<-gsub(paste(prefix[specie],prefix[specie],sep=""),prefix[specie],mymirnas[sel])
+      } 
       
+
       mymirnas<-mymirnas[which(mymirnas!="")]
       print(mymirnas)
       
@@ -145,14 +135,11 @@ shinyServer(function(input, output) {
       paste("Most of your miRNAs are from version:",maketable()[[2]],"\n")
     })  
     
-    
     output$percent <- renderPlot({
       datp<-maketable()[[3]]
       qplot(x=datp$x, y=datp$y, fill=datp$x) + geom_bar(stat="identity") +
         guides(fill=FALSE) + xlab("miRBase version") + ylab("Coincidence (%)")
-      
     })
-    
 
     output$translated<-renderTable(maketable()[[1]])
     
