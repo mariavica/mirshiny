@@ -2,6 +2,8 @@
 
 MiRTranslate is an app aimed to translate miRNA mature names to different miRBase versions. 
 
+
+## Use and installation
 There are many ways to download and run it:
 
 First check the dependencies (you only need to do this once):
