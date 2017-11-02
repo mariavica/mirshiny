@@ -32,12 +32,3 @@ runUrl("https://github.com/marivica/mirtranslate/archive/master.zip")
 setwd("~/mirtranslate")
 runApp()
 ```
-
-
-To run a Shiny app from a subdirectory in the repo or zip file, you can use the `subdir` argument. This repository happens to contain another copy of the app in `additional/mysubdir1`.
-
-```R
-runGitHub("mirtranslate", "mariavica", subdir = "patch-devel")
-
-runUrl("https://github.com/mariavica/mirtranslate/archive/master.tar.gz",
-  subdir = "patch-devel")
