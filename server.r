@@ -51,7 +51,7 @@ shinyServer(function(input, output) {
       }
 
       
-      if (input$species!="select") {
+      if (input$species!="(Not specified)") {
         specie<-which(species_name %in% input$species)
         sel<-c(grep("^miR",mymirnas),grep("^let",mymirnas))
         mymirnas[sel]<-paste(prefix[specie],mymirnas[sel],sep="")

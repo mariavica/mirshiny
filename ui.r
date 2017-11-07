@@ -1,5 +1,5 @@
 shinyUI(fluidPage(
-  titlePanel("MiRNA version identifier and translator"),
+  titlePanel("MiRTranslate: miRNA version identifier and translator"),
   
   sidebarLayout(
     sidebarPanel(
@@ -32,7 +32,8 @@ shinyUI(fluidPage(
 
   helpText("MiRNA species"),
   
-  selectInput(inputId = "species", label=NULL, choices=c("select","Homo sapiens","Mus musculus","Rattus norvegicus","Caenorhabditis elegans","Drosophila melanogaster","Danio rerio","Aedes aegypti", "Apis mellifera", "Arabidopsis thaliana","Bombyx mori", "Bos taurus", "Caenorhabditis briggsae", "Canis familiaris", "Chlamydomonas reinhardtii","Drosophila pseudoobscura", "Epstein Barr virus", "Fugu rubripes", "Gallus gallus", "Human cytomegalovirus","Kaposi sarcoma-associated herpesvirus", "Monodelphis domestica", "Mouse gammaherpesvirus 68","Macaca mulatta", "Oryza sativa", "Populus trichocarpa", "Pan troglodytes", "Schmidtea mediterranea","Tetraodon nigroviridis", "Vitis vinifera", "Xenopus tropicalis", "Zea mays"), selected = "Specified in name", multiple = FALSE, selectize = TRUE, width = NULL, size = 6),
+  selectInput(inputId = "species", label=NULL, choices=c("(Not specified)","Homo sapiens","Mus musculus","Rattus norvegicus","Caenorhabditis elegans","Drosophila melanogaster","Danio rerio","Aedes aegypti", "Apis mellifera", "Arabidopsis thaliana","Bombyx mori", "Bos taurus", "Caenorhabditis briggsae", "Canis familiaris", "Chlamydomonas reinhardtii","Drosophila pseudoobscura", "Epstein Barr virus", "Fugu rubripes", "Gallus gallus", "Human cytomegalovirus","Kaposi sarcoma-associated herpesvirus", "Monodelphis domestica", "Mouse gammaherpesvirus 68","Macaca mulatta", "Oryza sativa", "Populus trichocarpa", "Pan troglodytes", "Schmidtea mediterranea","Tetraodon nigroviridis", "Vitis vinifera", "Xenopus tropicalis", "Zea mays"), selected = "(Not specified)",
+              multiple = FALSE, selectize = FALSE, width = NULL, size = 5),
   
 
   checkboxInput(inputId="capitalise",label="Correct capitalization and other common typografic errors", value=FALSE)#,
