@@ -151,11 +151,11 @@ shinyServer(function(input, output) {
       colnames(mytrans)<-c((paste("miRBase_",as.character(selectedversion),sep="")),c(paste("miRBase_",as.character(input$mirto),sep="")))
       
       
-      return(list(mytrans,proposedversion,dat))
+      return(list(mytrans,proposedversion,dat,max(dat$y)))
     })
     
     output$text1 <- renderText({
-      paste("Most of your miRNAs are from version:",maketable()[[2]],"\n")
+      paste("Most of your miRNAs are from version: ",maketable()[[2]]," (",round(maketable()[[4]],2),"%)\n",sep="")
     })  
     
     output$percent <- renderPlot({
