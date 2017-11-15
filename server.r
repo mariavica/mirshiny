@@ -5,9 +5,29 @@ shinyServer(function(input, output) {
    #totcol<-ncol(versions.mirnas)
    load("mirbase_conversions.RData")
    
-   species_name<-c("Homo sapiens","Mus musculus")
-   prefix<-c("hsa-","mmu-")
+   species_name<-c("Homo sapiens","Mus musculus","Rattus norvegicus","Caenorhabditis elegans",
+     "Drosophila melanogaster","Danio rerio","Aedes aegypti", "Apis mellifera", "Arabidopsis thaliana", 
+     "Bombyx mori", "Bos taurus", "Caenorhabditis briggsae", "Canis familiaris", "Chlamydomonas reinhardtii",
+     "Drosophila pseudoobscura", "Epstein Barr virus", "Fugu rubripes", "Gallus gallus", "Human cytomegalovirus",
+     "Kaposi sarcoma-associated herpesvirus", "Monodelphis domestica", "Mouse gammaherpesvirus 68",
+     "Macaca mulatta", "Oryza sativa", "Populus trichocarpa", "Pan troglodytes", "Schmidtea mediterranea",
+     "Tetraodon nigroviridis", "Vitis vinifera", "Xenopus tropicalis", "Zea mays")
+   prefix<-c("hsa-","mmu-","rno-","cel-",
+      "dme-","dre-","aae-","ame-","ath-",
+      "bmo-","bta-","cbr-","cfa-","cre-",
+      "dps-","ebv-","fru-","gga-","hcmv-",
+      "kshv-","mdo-","mghv-",
+      "mml-","osa-","ptc-","ptr-","sme-",
+      "tni-","vvi-","xtr-","zma-")
+   prefix_capital<-c("[hH][sS][aA]-","[mM][mM][uU]-","[rR][nN][oO]-","[cC][eE][lL]-",
+      "[dD][mM][eE]-","[dD][rR][eE]-","[aA][aA][eE]-","[aA][mM][eE]-","[aA][tT][hH]-",
+      "[bB][mM][oO]-","[bB][tT][aA]-","[cC][bB][rR]-","[cC][fF][aA]-","[cC][rR][eE]-",
+      "[dD][pP][sS]-","[eE][bB][vV]-","[fF][rR][uU]-","[gG][gG][aA]-","[hH][cC][mM][vV]-",
+      "[kK][sS][hH][vV]-","[mM][dD][oO]-","[mM][gG][hH][vV]-",
+      "[mM][mM][lL]-","[oO][sS][aA]-","[pP][tT][cC]-","[pP][tT][rR]-","[sS][mM][eE]-",
+      "[tT][nN][iI]-","[vV][vV][iI]-","[xX][tT][rR]-","[zZ][mM][aA]-")
    
+
     maketable <- reactive( if (input$mirname!=""  | !is.null(input$csvfile) )  {
       
       perc <- function (x,target) {
@@ -29,8 +49,15 @@ shinyServer(function(input, output) {
       if (input$mirname!="") {
         mymirnas<-unlist(strsplit(as.character(input$mirname),c("\\,|\\ |\\\n")))
       }
+
       
-    
+      if (input$species!="(Not specified)") {
+        specie<-which(species_name %in% input$species)
+        sel<-c(grep("^miR",mymirnas),grep("^let",mymirnas))
+        mymirnas[sel]<-paste(prefix[specie],mymirnas[sel],sep="")
+        mymirnas[sel]<-gsub(paste(prefix[specie],prefix[specie],sep=""),prefix[specie],mymirnas[sel])
+      } 
+
       
       if (input$capitalise) {
         mymirnas<-gsub("[mM][iI][rR]","miR",mymirnas)
@@ -45,16 +72,14 @@ shinyServer(function(input, output) {
         mymirnas<-gsub("H","h",mymirnas)
         mymirnas<-gsub("I","i",mymirnas)
         mymirnas<-gsub("J","j",mymirnas)
+        #### other common erros
+        mymirnas<-gsub("[hH][aA][sS]","hsa",mymirnas)
+        for (i in 1:length(prefix_capital)) {
+          mymirnas<-gsub(prefix_capital[i],prefix[i],mymirnas)
+        }
       }
       
-      
-      if (input$species!="select") {
-        specie<-which(species_name %in% input$species)
-        sel<-c(grep("^miR",mymirnas),grep("^let",mymirnas))
-        mymirnas[sel]<-paste(prefix[specie],mymirnas[sel],sep="")
-        mymirnas[sel]<-gsub(paste(prefix[specie],prefix[specie],sep=""),prefix[specie],mymirnas[sel])
-      } 
-      
+            
 
       mymirnas<-mymirnas[which(mymirnas!="")]
       #print(mymirnas)
