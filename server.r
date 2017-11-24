@@ -19,14 +19,6 @@ shinyServer(function(input, output) {
       "kshv-","mdo-","mghv-",
       "mml-","osa-","ptc-","ptr-","sme-",
       "tni-","vvi-","xtr-","zma-")
-   prefix_capital<-c("[hH][sS][aA]-","[mM][mM][uU]-","[rR][nN][oO]-","[cC][eE][lL]-",
-      "[dD][mM][eE]-","[dD][rR][eE]-","[aA][aA][eE]-","[aA][mM][eE]-","[aA][tT][hH]-",
-      "[bB][mM][oO]-","[bB][tT][aA]-","[cC][bB][rR]-","[cC][fF][aA]-","[cC][rR][eE]-",
-      "[dD][pP][sS]-","[eE][bB][vV]-","[fF][rR][uU]-","[gG][gG][aA]-","[hH][cC][mM][vV]-",
-      "[kK][sS][hH][vV]-","[mM][dD][oO]-","[mM][gG][hH][vV]-",
-      "[mM][mM][lL]-","[oO][sS][aA]-","[pP][tT][cC]-","[pP][tT][rR]-","[sS][mM][eE]-",
-      "[tT][nN][iI]-","[vV][vV][iI]-","[xX][tT][rR]-","[zZ][mM][aA]-")
-   
 
     maketable <- reactive( if (input$mirname!=""  | !is.null(input$csvfile) )  {
       
@@ -60,26 +52,15 @@ shinyServer(function(input, output) {
 
       
       if (input$capitalise) {
-        mymirnas<-gsub("[mM][iI][rR]","miR",mymirnas)
-        mymirnas<-gsub("[Ll][Ee][Tt]","let",mymirnas)
-        mymirnas<-gsub("A","a",mymirnas)
-        mymirnas<-gsub("B","b",mymirnas)
-        mymirnas<-gsub("C","c",mymirnas)
-        mymirnas<-gsub("D","d",mymirnas)
-        mymirnas<-gsub("E","e",mymirnas)
-        mymirnas<-gsub("F","f",mymirnas)
-        mymirnas<-gsub("G","g",mymirnas)
-        mymirnas<-gsub("H","h",mymirnas)
-        mymirnas<-gsub("I","i",mymirnas)
-        mymirnas<-gsub("J","j",mymirnas)
+        ### put everyting in not capitals, except from the combination "miR"
+        for (i in 1:length(letters)) {
+          mymirnas<-gsub(LETTERS[i],letters[i],mymirnas)
+        }
+        mymirnas<-gsub("mir","miR",mymirnas)
+
         #### other common erros
         mymirnas<-gsub("[hH][aA][sS]","hsa",mymirnas)
-        for (i in 1:length(prefix_capital)) {
-          mymirnas<-gsub(prefix_capital[i],prefix[i],mymirnas)
-        }
       }
-      
-            
 
       mymirnas<-mymirnas[which(mymirnas!="")]
       #print(mymirnas)
@@ -151,11 +132,11 @@ shinyServer(function(input, output) {
       colnames(mytrans)<-c((paste("miRBase_",as.character(selectedversion),sep="")),c(paste("miRBase_",as.character(input$mirto),sep="")))
       
       
-      return(list(mytrans,proposedversion,dat))
+      return(list(mytrans,proposedversion,dat,max(dat$y)))
     })
     
-    output$text1 <- renderText({
-      paste("Most of your miRNAs are from version:",maketable()[[2]],"\n")
+    output$text1 <- renderText( if (input$mirname!=""  | !is.null(input$csvfile)) {
+      paste("Most of your miRNAs are from version: ",maketable()[[2]]," (",round(maketable()[[4]],2),"%)\n",sep="")
     })  
     
     output$percent <- renderPlot({
