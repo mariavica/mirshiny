@@ -135,7 +135,7 @@ shinyServer(function(input, output) {
       return(list(mytrans,proposedversion,dat,max(dat$y)))
     })
     
-    output$text1 <- renderText({
+    output$text1 <- renderText( if (input$mirname!=""  | !is.null(input$csvfile)) {
       paste("Most of your miRNAs are from version: ",maketable()[[2]]," (",round(maketable()[[4]],2),"%)\n",sep="")
     })  
     
