@@ -2,9 +2,12 @@
 
 MiRTranslate is an app aimed to translate miRNA mature names to different miRBase versions. 
 
+## Online
+http://mariavica.shinyapps.io/mirtranslate
+
 
 ## Use and installation
-There are many ways to download and run it:
+If you want to download the app and use it in your computer, there are many ways to download and run it:
 
 First check the dependencies (you only need to do this once):
 
